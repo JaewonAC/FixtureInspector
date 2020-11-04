@@ -26,7 +26,6 @@ def nocache(view):
 @app.route('/index')
 @nocache
 def index():
-    print(os.getcwd())
     p = Path('/dev/')
     usb_list = [usb.name for usb in p.glob('sd*[0-9]')]
     usb_list.insert(0, None)
@@ -41,6 +40,22 @@ def index():
         os.system('rm -r ' + os.getcwd() + '/app/static/*')
 
     return render_template('index.html', form=form)
+
+@app.route('/on', methods=['GET', 'POST'])
+def on():
+    os.system('python3 pixel.py on')
+    return redirect(url_for('index'))
+
+@app.route('/off', methods=['GET', 'POST'])
+def off():
+    os.system('python3 pixel.py off')
+    return redirect(url_for('index'))
+
+@app.route('/idle', methods=['GET', 'POST'])
+def idle():
+    fictrl = FixtureInspectorController()
+    fictrl.Stepmotor_idle()
+    return redirect(url_for('index'))
 
 @app.route('/shoot', methods=['GET', 'POST'])
 @nocache
