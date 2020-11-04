@@ -1,0 +1,14 @@
+https://unix.stackexchange.com/questions/65891/how-to-execute-a-shellscript-when-i-plug-in-a-usb-device
+
+https://hackaday.com/2009/09/18/how-to-write-udev-rules/
+
+sudo nano /etc/udev/rules.d/81-thumbdrive.rules
+
+KERNEL=="sda1", RUN+="/home/pi/test.sh"
+
+sudo /etc/init.d/udev restart
+
+chmod +x test.sh
+
+answered my question by myself
+https://stackoverflow.com/questions/64656148/run-program-when-usb-connected-to-raspberry-pi/64657589#64657589

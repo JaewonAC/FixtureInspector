@@ -1,0 +1,11 @@
+version: "2.3"
+services:
+  web:
+    privileged: true
+    build: .
+    container_name: fixins_web
+    command: flask run --host 0.0.0.0
+    volumes:
+      - ./fixins:/fixins
+    ports:
+      - "80:5000"

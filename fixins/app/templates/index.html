@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Fixture Inspector</title>
+    </head>
+    <body>
+        <form action = "/shoot" method="post">
+            <p>
+                {{form.lot_number.label }}<br>
+                {{form.lot_number(size=32) }}
+            </p>
+            <p>
+                {{form.usb_drive.label}}<br>
+                {{form.usb_drive()}}
+            </p>
+            <p>
+                {{form.shoot()}}
+            </p>
+        </form>
+    </body>
+</html>

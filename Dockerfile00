@@ -1,0 +1,15 @@
+FROM python:3.8-buster AS compile-image
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install python3-pip -y && \
+    python3 -m pip install --user git+https://github.com/JaewonAC/sony_camera_api.git && \
+    pip3 install --user Flask==1.1.2 RPi.GPIO rpi_ws281x
+
+FROM python:3.8-alpine AS build-image
+
+COPY --from=compile-image /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+RUN pip3 install --user adafruit-circuitpython-neopixel && \
+    python3 -m pip install --user --force-reinstall adafruit-blinka && \
+    mkdir /fixins
+WORKDIR /fixins

@@ -1,0 +1,44 @@
+https://stackoverflow.com/questions/43671482/how-to-run-docker-compose-up-d-at-system-start-up
+
+When we use crontab or the deprecated /etc/rc.local file, we need a delay (e.g. sleep 10, depending on the machine) to make sure that system services are available. Usually, systemd (or upstart) is used to manage which services start when the system boots. You can try use the similar configuration for this:
+
+# /etc/systemd/system/docker-compose-app.service
+
+[Unit]
+Description=Docker Compose Application Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/docker
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+Or, if you want run without the -d flag:
+
+# /etc/systemd/system/docker-compose-app.service
+
+[Unit]
+Description=Docker Compose Application Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+WorkingDirectory=/srv/docker
+ExecStart=/usr/local/bin/docker-compose up
+ExecStop=/usr/local/bin/docker-compose down
+TimeoutStartSec=0
+Restart=on-failure
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
+Change the WorkingDirectory parameter with your dockerized project path. And enable the service to start automatically:
+
+systemctl enable docker-compose-app
