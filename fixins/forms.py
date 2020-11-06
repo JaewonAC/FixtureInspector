@@ -5,4 +5,3 @@ class ShootForm(FlaskForm):
   lot_number = StringField('Lot Number')
   usb_drive = SelectField("Choose USB", choices=[])
   shoot = SubmitField('Shoot')
-  

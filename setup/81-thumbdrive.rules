@@ -1,0 +1,1 @@
+KERNEL=="sda1" SUBSYSTEM=="block" RUN+="/home/pi/fixins/setting/usb_restart.sh"

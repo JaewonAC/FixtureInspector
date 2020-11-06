@@ -12,10 +12,6 @@ class FixtureInspectorController:
   cameras = None
   camera = None
 
-  pixel_pin = board.D18
-  pixels = None
-  num_pixels = 10
-
   halfstep = 0
   control_pins = [22, 24, 23, 25]
   halfstep_seq = [
@@ -31,13 +27,7 @@ class FixtureInspectorController:
 
   def __init__(self):
     self.setupCam()
-    # self.setupNeopixel()
     self.setupStepmotor()
-
-  # def __del__(self):
-  #   self.setupNeopixel()
-  #   self.pixels.fill((0, 0, 0, 0))
-  #   GPIO.cleanup()
 
   def setupCam(self):
     # print("Searching for camera...")
@@ -61,7 +51,7 @@ class FixtureInspectorController:
     self.camera.setPostviewImageSize('Original')
     self.camera.setFNumber('22')
     self.camera.setIsoSpeedRate('100')
-    self.camera.setShutterSpeed('1/10')
+    self.camera.setShutterSpeed('1/20')
     self.camera.setTouchAFPosition([50.0, 50.0])
 
 

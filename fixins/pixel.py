@@ -58,3 +58,5 @@ if __name__ == '__main__':
       time.sleep(0.001)
 
     pixels.fill((0, 0, 0, 0))
+
+  quit()

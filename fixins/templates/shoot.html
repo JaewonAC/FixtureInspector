@@ -1,0 +1,37 @@
+<html>
+  <head>
+    {% if title %}
+      <title>{{title}}</title>
+    {% else %}
+      <title>Fixture Inspector</title>
+    {% endif %}
+    <script type="text/javascript" src="static/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="static/js/socket.io.min.js"></script>
+  </head>
+  <body>
+    <p>
+        Lot Number<br>
+        {{json.lot_number}}
+    </p>
+    <p>
+        usb<br>
+        {{json.usb_drive}}
+    </p>
+  </body>
+  <script>
+    $(document).ready(function(){
+      //connect to the socket server.
+      var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+
+      //receive details from server
+      socket.on('image_ready', function(msg) {
+        var img = document.createElement("img");
+        img.src = "static/fixture/" + msg.image_url +'?dummy=' + (new Date()).getTime();
+        img.width = 750;
+        img.height = 452;
+        var src = document.getElementsByTagName("body")[0];
+        src.appendChild(img);
+      });
+    });
+  </script>
+</html>

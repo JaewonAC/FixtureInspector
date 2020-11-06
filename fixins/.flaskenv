@@ -1,2 +1,0 @@
-FLASK_DEBUG=0
-FLASK_APP=fixins.py
