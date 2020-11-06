@@ -1,1 +1,1 @@
-KERNEL=="sda1" SUBSYSTEM=="block" RUN+="/home/pi/fixins/setting/usb_restart.sh"
+KERNEL=="sda1" SUBSYSTEM=="block" RUN+="/home/pi/fixtureinspector/setting/usb_restart.sh"
