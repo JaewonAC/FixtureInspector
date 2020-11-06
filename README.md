@@ -2,20 +2,42 @@
 ```
 sudo apt-get install git
 ```
-2. install docker
+2. install docker and docker-compose
+https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl
 ```
-sudo apt-get install apt-transport-https ca-certificates software-properties-common gnupg-agent -y
-curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
-sudo 
+curl -fsSL get.docker.com | sh
+sudo usermod -aG docker pi
+sudo reboot
+docker run hello-world
+sudo apt-get install -y libffi-dev libssl-dev
+sudo apt-get install -y python3 python3-pip
+sudo apt-get remove python-configparser
+sudo pip3 -v install docker-compose
 ```
 
-3. build and run docker-compose
+3. wifi connect to sony camera
 ```
-docker-compose build --force-rm
-docker-compose run -d
+sudo raspi-config 
+```
+or
+```
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+write
+```
+network={
+  ssid=
+  psk=
+}
 ```
 
-4. run ./setup/setup.sh
+4. build and run docker-compose
+```
+fixtureinspector/docker-compose build --force-rm
+fixtureinspector/docker-compose run -d
+```
+
+5. run ./setup/setup.sh
 ```
 run ./setup/setup.sh
 ```
