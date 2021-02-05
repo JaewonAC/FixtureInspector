@@ -3,27 +3,23 @@
         <title>Fixture Inspector</title>
     </head>
     <body>
-        <form action = "/shoot" method="post">
-            <p>
-                {{form.lot_number.label }}<br>
-                {{form.lot_number(size=32) }}
-            </p>
-            <p>
-                {{form.usb_drive.label}}<br>
-                {{form.usb_drive()}}
-            </p>
-            <p>
-                {{form.shoot()}}
-            </p>
+        <form action = "/ledon" method="post">
+            <input type="submit" value="LED On">
         </form>
-        <form action = "/on" method="post">
-            <input type="submit" value="on">
+        <form action = "/ledoff" method="post">
+            <input type="submit" value="LED Off">
         </form>
-        <form action = "/off" method="post">
-            <input type="submit" value="off">
+        <form action = "/plason" method="post">
+            <input type="submit" value="Plasma On">
         </form>
-        <form action = "/idle" method="post">
-            <input type="submit" value="idle">
+        <form action = "/plasoff" method="post">
+            <input type="submit" value="Plasma Off">
+        </form>
+        <form action = "/size_original">
+            <input type="submit" value="Size Original">
+        </form>
+        <form action = "/size_2m">
+            <input type="submit" value="Size 2M">
         </form>
     </body>
 </html>

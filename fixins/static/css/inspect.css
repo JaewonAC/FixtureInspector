@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  flex-direction: column;
+}
+
+.info {
+  position: relative;
+  text-align: left;
+  flex-direction: row;
+}
+
+.info_contents {
+  width: 200px;
+  position: relative;
+  flex-direction: row;
+  display: table-cell;
+}
+
+.images {
+  position: relative;
+  text-align: left;
+  flex-direction: row;
+  display: flex;
+}
+
+.image {
+  width: 20%;
+}

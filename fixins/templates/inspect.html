@@ -1,0 +1,89 @@
+<html>
+  <head>
+    {% if title %}
+      <title>{{title}}</title>
+    {% else %}
+      <title>Fixture Inspector</title>
+    {% endif %}
+    <script type="text/javascript" src="static/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="static/js/socket.io.min.js"></script>
+    <link rel="stylesheet" href="static/css/inspect.css">
+  </head>
+  <body>
+    <div class = container>
+      <div class = info>
+        <div class = info_contents>
+          <div>Lot Number</div>
+          <div id = lot_number>{{lot_number}}</div>
+        </div>
+        
+        <div class = info_contents>
+          <div>Code</div>
+          <div id = code>{{code}}</div>
+        </div>
+        
+        <div class = info_contents>
+          <div>Serial</div>
+          <div id = serial>{{serial}}</div>
+        </div>
+        
+      </div>
+
+      <div class = images>
+        <div class = image>
+          <img id = "image1" src="static/fixture/{{image1}}" width = "350" height = "700">
+          <div id = "angle1"></div>
+        </div>
+        <div class = image>
+          <img id = "image2" src="static/fixture/{{image2}}" width = "350" height = "700">
+          <div id = "angle2"></div>
+        </div>
+        <div class = image>
+          <img id = "image3" src="static/fixture/{{image3}}" width = "350" height = "700">
+          <div id = "angle3"></div>
+        </div>
+        <div class = image>
+          <img id = "image4" src="static/fixture/{{image4}}" width = "350" height = "700">
+          <div id = "angle4"></div>
+        </div>
+        <div class = image>
+          <img id = "image5" src="static/fixture/{{image5}}" width = "350" height = "700">
+          <div id = "angle5"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function(){
+      //connect to the socket server.
+      // var socket = io.connect('http://' + document.domain + ':' + location.port + '/inspect');
+      var socket = io.connect('http://' + document.domain + '/inspect');
+
+      //receive details from server
+      socket.on('image_ready', function(msg) {
+        document.getElementById('lot_number').innerHTML = msg.lot_number
+        document.getElementById('code').innerHTML = msg.code
+        document.getElementById('serial').innerHTML = msg.serial
+        
+        var img = document.getElementById("image" + msg.shoot_num)
+        img.src = "static/fixture/" + msg.image_url +'?dummy=' + (new Date()).getTime();
+        // img.width = 275;
+        // img.height = 550;
+        img.width = 350;
+        img.height = 700;
+
+        document.getElementById("angle" + msg.shoot_num).innerHTML = msg.angle
+      });
+
+      socket.on('ng', function() {
+        document.getElementById('lot_number').innerHTML = ''
+        document.getElementById('code').innerHTML = ''
+        document.getElementById('serial').innerHTML = ''
+        
+        for(i = 1; i < 6; i ++){
+          document.getElementById("image" + i).src = ''
+        }
+      });
+    });
+  </script>
+</html>
